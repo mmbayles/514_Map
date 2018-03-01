@@ -1,0 +1,49 @@
+{% extends "tethys_apps/app_base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}{{ tethys_app.name }}{% endblock %}
+
+{% block app_icon %}
+  {# The path you provided in your app.py is accessible through the tethys_app.icon context variable #}
+  <img src="{% static tethys_app.icon %}">
+{% endblock %}
+
+{# The name you provided in your app.py is accessible through the tethys_app.name context variable #}
+{% block app_title %}{{ tethys_app.name }}{% endblock %}
+
+{% block app_navigation_items %}
+<h4>Navigation</h4>
+  {% url 'matt_map_app:home' as home_url %}
+  {% url 'matt_map_app:map_view' as map_view %}
+  {% url 'matt_map_app:data_services' as data_services %}
+  {% url 'matt_map_app:about' as about %}
+  {% url 'matt_map_app:mockup' as mockup %}
+  {% url 'matt_map_app:proposal' as proposal %}
+
+  <li class="{% if request.path == home_url %}active{% endif %}"><a href="{{ home_url }}">Home</a></li>
+  <li class="{% if request.path == map_view %}active{% endif %}"><a href="{{ map_view }}">Map View</a></li>
+  <li class="{% if request.path == data_services %}active{% endif %}"><a href="{{ data_services }}">Data Services</a></li>
+  <li class="{% if request.path == about %}active{% endif %}"><a href="{{ about }}">About</a></li>
+  <li class="{% if request.path == mockup %}active{% endif %}"><a href="{{ mockup }}">Mockup</a></li>
+  <li class="{% if request.path == proposal %}active{% endif %}"><a href="{{ proposal }}">Proposal</a></li>
+{% endblock %}
+
+{% block app_content %}
+{% endblock %}
+
+{% block app_actions %}
+{% endblock %}
+
+{% block content_dependent_styles %}
+  {{ block.super }}
+  <link href="{% static 'matt_map_app/css/main.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="https://js.arcgis.com/4.6/"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+{% endblock %}
