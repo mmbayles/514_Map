@@ -57,7 +57,7 @@ def home(request):
         'text_input':text_input
     }
 
-    return render(request, 'matt_map_app/home.html', context)
+    return render(request, 'matt_map_app/data_services.html', context)
 
 def map_view(request):
     """
