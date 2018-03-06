@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from tethys_sdk.gizmos import Button
+from tethys_sdk.gizmos import *
 
 @login_required()
 def home(request):
@@ -29,8 +29,32 @@ def home(request):
                 running on your computer.</li>
                 <li>Be prepared to do a quick 2 minute demo of your app in class on Tuesday.</li> </ol>
                 """
+
+    datatable_default = DataTableView(column_names=('Name', 'Age', 'Job'),
+                                      rows=[('Bill', 30, 'contractor'),
+                                            ('Fred', 18, 'programmer'),
+                                            ('Bob', 26, 'boss')],
+                                      searching=False,
+                                      orderClasses=False,
+                                      lengthMenu=[[10, 25, 50, -1], [10, 25, 50, "All"]],
+                                      )
+    date_picker = DatePicker(name='date1',
+                             display_text='Date',
+                             autoclose=True,
+                             format='MM d, yyyy',
+                             start_date='2/15/2014',
+                             start_view='decade',
+                             today_button=True,
+                             initial='February 15, 2014')
+    text_input = TextInput(display_text='Text',
+                           name='inputAmount',
+                           placeholder='e.g.: 10.00',
+                           prepend='$')
     context = {
-        'text_data': text_data
+        'text_data': text_data,
+        'datatable_view': datatable_default,
+        'date_picker':date_picker,
+        'text_input':text_input
     }
 
     return render(request, 'matt_map_app/home.html', context)
